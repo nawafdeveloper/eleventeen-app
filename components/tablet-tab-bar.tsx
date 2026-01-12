@@ -53,6 +53,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         gap: 12,
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        zIndex: 999
     },
     tabItem: {
         padding: 12,

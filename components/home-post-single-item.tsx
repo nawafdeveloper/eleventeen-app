@@ -2,10 +2,12 @@ import { Colors } from '@/constants/theme';
 import { useBottomSheet } from '@/context/bottom-sheet-context';
 import { Comment1Outlined, MenuMeatballs1Solid, Share1Outlined, ThumbsUp3Outlined } from '@lineiconshq/free-icons';
 import { Lineicons } from '@lineiconshq/react-native-lineicons';
+import { router } from 'expo-router';
 import { GlobeHemisphereEastIcon, SealCheckIcon } from 'phosphor-react-native';
 import React from 'react';
 import { Image, Pressable, StyleSheet, useColorScheme } from 'react-native';
 import HomePostSingleItemMoreAction from './home-post-single-item-more-action';
+import HomePostSingleItemVerificationDescription from './home-post-single-item-verification-description';
 import HomePostSingleReactionButton from './home-post-single-reaction-button';
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
@@ -19,7 +21,7 @@ const HomePostSingleItem = () => {
     return (
         <ThemedView style={styles.content}>
             <ThemedView style={styles.headerContainer}>
-                <ThemedView style={styles.headerLeft}>
+                <Pressable onPress={() => router.push('/profile-page')} style={styles.headerLeft}>
                     <Image
                         source={{ uri: image }}
                         resizeMode='contain'
@@ -30,7 +32,9 @@ const HomePostSingleItem = () => {
                             <ThemedText style={styles.usernameText}>
                                 ثمانية / Thmanyah
                             </ThemedText>
-                            <SealCheckIcon color={Colors[colorScheme ?? 'dark'].primary} weight="fill" size={16} />
+                            <Pressable onPress={() => present(<HomePostSingleItemVerificationDescription />)}>
+                                <SealCheckIcon color={Colors[colorScheme ?? 'dark'].primary} weight="fill" size={16} />
+                            </Pressable>
                         </ThemedView>
                         <ThemedView style={styles.postMetadataContainer}>
                             <ThemedText style={[styles.postTimestampText, { color: Colors[colorScheme ?? 'dark'].secondaryText }]}>
@@ -39,7 +43,7 @@ const HomePostSingleItem = () => {
                             <GlobeHemisphereEastIcon color={Colors[colorScheme ?? 'dark'].secondaryText} weight="fill" size={14} />
                         </ThemedView>
                     </ThemedView>
-                </ThemedView>
+                </Pressable>
                 <ThemedView style={styles.headerRight}>
                     <Pressable onPress={() => present(<HomePostSingleItemMoreAction />)}>
                         <Lineicons
@@ -54,11 +58,13 @@ const HomePostSingleItem = () => {
                 <ThemedText style={styles.postDescriptionText}>
                     لا تحتاج أكثر من قفزة واحدة للبدء، وبداية أسبوع موفقة! 🫶
                 </ThemedText>
-                <Image
-                    source={{ uri: 'https://scontent.fdmm2-4.fna.fbcdn.net/v/t39.30808-6/614121653_901874235710876_6082170084607589440_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=mQJUC36k1m8Q7kNvwGhTL0u&_nc_oc=AdnbOc2026t0sCufsq80Ggp6z3Id6D9x-y6IuKwaUOngTJRnCFnVi8H6Xa8lmPvzG2rvrC6Nxw9gqp6mu1S1QcN9&_nc_zt=23&_nc_ht=scontent.fdmm2-4.fna&_nc_gid=rF0Ity43aMgkz_WV2rUnJA&oh=00_AfqjhWogySBtjmLW8vDC4yM4Um_p-MYWXQ8Hy0qVLNA5vA&oe=6969DDDD' }}
-                    resizeMode='contain'
-                    style={styles.postImage}
-                />
+                <Pressable onPress={() => router.push({ pathname: '/image-preview', params: { postId: 1 } })}>
+                    <Image
+                        source={{ uri: 'https://scontent.fdmm2-4.fna.fbcdn.net/v/t39.30808-6/614121653_901874235710876_6082170084607589440_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=833d8c&_nc_ohc=mQJUC36k1m8Q7kNvwGhTL0u&_nc_oc=AdnbOc2026t0sCufsq80Ggp6z3Id6D9x-y6IuKwaUOngTJRnCFnVi8H6Xa8lmPvzG2rvrC6Nxw9gqp6mu1S1QcN9&_nc_zt=23&_nc_ht=scontent.fdmm2-4.fna&_nc_gid=rF0Ity43aMgkz_WV2rUnJA&oh=00_AfqjhWogySBtjmLW8vDC4yM4Um_p-MYWXQ8Hy0qVLNA5vA&oe=6969DDDD' }}
+                        resizeMode='contain'
+                        style={styles.postImage}
+                    />
+                </Pressable>
             </ThemedView>
             <ThemedView style={styles.interactonsContainer}>
                 <ThemedView style={styles.interactionResultsContainer}>

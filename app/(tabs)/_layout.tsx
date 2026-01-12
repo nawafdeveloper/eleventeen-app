@@ -9,6 +9,7 @@ import { Lineicons } from '@lineiconshq/react-native-lineicons';
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { Tabs } from 'expo-router';
 import { Image, Platform, StyleSheet, useWindowDimensions } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import HomeScreen from '.';
 import FriendsScreen from './friends';
 import NotificationScreen from './notifications';
@@ -31,18 +32,130 @@ export default function TabLayout() {
 
     if (isTablet) {
         return (
-            <Tabs
-                tabBar={props => <CustomTabBar {...props} />}
+            <SafeAreaView
+                style={{
+                    flex: 1,
+                    backgroundColor: Colors[colorScheme ?? 'dark'].background,
+                }}
+                edges={['top', 'right', 'left']}
+            >
+                <Tabs
+                    tabBar={props => <CustomTabBar {...props} />}
+                    screenOptions={{
+                        tabBarPosition: 'left',
+                        headerShown: false,
+                        sceneStyle: {
+                            backgroundColor: Colors[colorScheme ?? 'dark'].background,
+                        }
+                    }}
+                >
+                    <Tabs.Screen
+                        name='index'
+                        options={{
+                            tabBarIcon: ({ focused, color }) => (
+                                <Lineicons
+                                    icon={focused ? Home2Solid : Home2Outlined}
+                                    size={24}
+                                    color={color}
+                                    strokeWidth={2}
+                                />
+                            )
+                        }}
+                    />
+                    <Tabs.Screen
+                        name='search'
+                        options={{
+                            tabBarIcon: ({ focused, color }) => (
+                                <Lineicons
+                                    icon={focused ? Search1Solid : Search1Outlined}
+                                    size={24}
+                                    color={color}
+                                    strokeWidth={2}
+                                />
+                            )
+                        }}
+                    />
+                    <Tabs.Screen
+                        name='friends'
+                        options={{
+                            tabBarIcon: ({ focused, color }) => (
+                                <Lineicons
+                                    icon={focused ? UserMultiple4Solid : UserMultiple4Outlined}
+                                    size={24}
+                                    color={color}
+                                    strokeWidth={2}
+                                />
+                            )
+                        }}
+                    />
+                    <Tabs.Screen
+                        name='notifications'
+                        options={{
+                            tabBarIcon: ({ focused, color }) => (
+                                <Lineicons
+                                    icon={focused ? Bell1Solid : Bell1Outlined}
+                                    size={24}
+                                    color={color}
+                                    strokeWidth={2}
+                                />
+                            ),
+                        }}
+                    />
+                    <Tabs.Screen
+                        name='profile'
+                        options={{
+                            tabBarIcon: ({ focused, color }) => (
+                                <ThemedView style={[
+                                    styles.profileButton,
+                                    {
+                                        borderWidth: focused ? 2 : 0,
+                                        borderColor: color,
+                                    }
+                                ]}>
+                                    <Image
+                                        source={{ uri: 'https://pbs.twimg.com/profile_images/1958555730165817344/nI8flmWW_400x400.jpg' }}
+                                        resizeMode='contain'
+                                        style={styles.profileImage}
+                                    />
+                                </ThemedView>
+                            )
+                        }}
+                    />
+                </Tabs>
+            </SafeAreaView>
+        )
+    }
+
+    return (
+        <SafeAreaView
+            style={{
+                flex: 1,
+                backgroundColor: Colors[colorScheme ?? 'dark'].background,
+            }}
+            edges={['top', 'right', 'left']}
+        >
+            <Tab.Navigator
                 screenOptions={{
-                    tabBarPosition: 'left',
-                    headerShown: false,
-                    sceneStyle: {
-                        backgroundColor: Colors[colorScheme ?? 'dark'].background,
-                    }
+                    tabBarShowLabel: false,
+                    tabBarIndicatorStyle: {
+                        backgroundColor: Colors[colorScheme ?? 'dark'].primary,
+                        height: 3,
+                    },
+                    tabBarStyle: {
+                        elevation: 0,
+                        shadowColor: 'transparent',
+                        borderBottomWidth: 1,
+                        borderColor: Colors[colorScheme ?? 'dark'].border,
+                        backgroundColor: Colors[colorScheme ?? 'dark'].background
+                    },
+                    tabBarActiveTintColor: Colors[colorScheme ?? 'dark'].primary,
+                    tabBarInactiveTintColor: Colors[colorScheme ?? 'dark'].icon,
+                    animationEnabled: false,
                 }}
             >
-                <Tabs.Screen
-                    name='index'
+                <Tab.Screen
+                    name="Home"
+                    component={HomeScreen}
                     options={{
                         tabBarIcon: ({ focused, color }) => (
                             <Lineicons
@@ -54,8 +167,9 @@ export default function TabLayout() {
                         )
                     }}
                 />
-                <Tabs.Screen
-                    name='search'
+                <Tab.Screen
+                    name="Search"
+                    component={SearchScreen}
                     options={{
                         tabBarIcon: ({ focused, color }) => (
                             <Lineicons
@@ -67,8 +181,9 @@ export default function TabLayout() {
                         )
                     }}
                 />
-                <Tabs.Screen
-                    name='friends'
+                <Tab.Screen
+                    name="Friends"
+                    component={FriendsScreen}
                     options={{
                         tabBarIcon: ({ focused, color }) => (
                             <Lineicons
@@ -80,8 +195,9 @@ export default function TabLayout() {
                         )
                     }}
                 />
-                <Tabs.Screen
-                    name='notifications'
+                <Tab.Screen
+                    name="Notifications"
+                    component={NotificationScreen}
                     options={{
                         tabBarIcon: ({ focused, color }) => (
                             <Lineicons
@@ -91,10 +207,26 @@ export default function TabLayout() {
                                 strokeWidth={2}
                             />
                         ),
+                        tabBarBadge: () => (
+                            <ThemedView
+                                style={{
+                                    width: 10,
+                                    height: 10,
+                                    borderRadius: 99,
+                                    backgroundColor: 'red',
+                                    position: 'absolute',
+                                    top: 10,
+                                    right: Platform.OS === 'android' ? 30 : 25,
+                                    outlineWidth: 3,
+                                    outlineColor: Colors[colorScheme ?? 'dark'].background
+                                }}
+                            />
+                        ),
                     }}
                 />
-                <Tabs.Screen
-                    name='profile'
+                <Tab.Screen
+                    name="Profile"
+                    component={ProfileScreen}
                     options={{
                         tabBarIcon: ({ focused, color }) => (
                             <ThemedView style={[
@@ -113,123 +245,8 @@ export default function TabLayout() {
                         )
                     }}
                 />
-            </Tabs>
-        )
-    }
-
-    return (
-        <Tab.Navigator
-            screenOptions={{
-                tabBarShowLabel: false,
-                tabBarIndicatorStyle: {
-                    backgroundColor: Colors[colorScheme ?? 'dark'].primary,
-                    height: 3,
-                },
-                tabBarStyle: {
-                    elevation: 0,
-                    shadowColor: 'transparent',
-                    borderBottomWidth: 1,
-                    borderColor: Colors[colorScheme ?? 'dark'].border,
-                    backgroundColor: Colors[colorScheme ?? 'dark'].background
-                },
-                tabBarActiveTintColor: Colors[colorScheme ?? 'dark'].primary,
-                tabBarInactiveTintColor: Colors[colorScheme ?? 'dark'].icon,
-                animationEnabled: false,
-            }}
-        >
-            <Tab.Screen
-                name="Home"
-                component={HomeScreen}
-                options={{
-                    tabBarIcon: ({ focused, color }) => (
-                        <Lineicons
-                            icon={focused ? Home2Solid : Home2Outlined}
-                            size={24}
-                            color={color}
-                            strokeWidth={2}
-                        />
-                    )
-                }}
-            />
-            <Tab.Screen
-                name="Search"
-                component={SearchScreen}
-                options={{
-                    tabBarIcon: ({ focused, color }) => (
-                        <Lineicons
-                            icon={focused ? Search1Solid : Search1Outlined}
-                            size={24}
-                            color={color}
-                            strokeWidth={2}
-                        />
-                    )
-                }}
-            />
-            <Tab.Screen
-                name="Friends"
-                component={FriendsScreen}
-                options={{
-                    tabBarIcon: ({ focused, color }) => (
-                        <Lineicons
-                            icon={focused ? UserMultiple4Solid : UserMultiple4Outlined}
-                            size={24}
-                            color={color}
-                            strokeWidth={2}
-                        />
-                    )
-                }}
-            />
-            <Tab.Screen
-                name="Notifications"
-                component={NotificationScreen}
-                options={{
-                    tabBarIcon: ({ focused, color }) => (
-                        <Lineicons
-                            icon={focused ? Bell1Solid : Bell1Outlined}
-                            size={24}
-                            color={color}
-                            strokeWidth={2}
-                        />
-                    ),
-                    tabBarBadge: () => (
-                        <ThemedView
-                            style={{
-                                width: 10,
-                                height: 10,
-                                borderRadius: 99,
-                                backgroundColor: 'red',
-                                position: 'absolute',
-                                top: 10,
-                                right: Platform.OS === 'android' ? 30 : 25,
-                                outlineWidth: 3,
-                                outlineColor: Colors[colorScheme ?? 'dark'].background
-                            }}
-                        />
-                    ),
-                }}
-            />
-            <Tab.Screen
-                name="Profile"
-                component={ProfileScreen}
-                options={{
-                    tabBarIcon: ({ focused, color }) => (
-                        <ThemedView style={[
-                            styles.profileButton,
-                            {
-                                borderWidth: focused ? 2 : 0,
-                                borderColor: color,
-                            }
-                        ]}>
-                            <Image
-                                source={{ uri: 'https://pbs.twimg.com/profile_images/1958555730165817344/nI8flmWW_400x400.jpg' }}
-                                resizeMode='contain'
-                                style={styles.profileImage}
-                            />
-                        </ThemedView>
-                    )
-                }}
-            />
-        </Tab.Navigator>
+            </Tab.Navigator>
+        </SafeAreaView>
     );
 }
 

@@ -14,7 +14,7 @@ const HomePostSingleItemMoreAction = () => {
             <ThemedView style={[
                 styles.buttonsGroupContainer,
                 {
-                    backgroundColor: colorScheme === 'dark' ? Colors.dark.card : '#f5f5f5'
+                    backgroundColor: Colors[colorScheme ?? 'dark'].card
                 }
             ]}>
                 {moreActionList.slice(0, 2).map((item) => (
@@ -40,7 +40,7 @@ const HomePostSingleItemMoreAction = () => {
             <ThemedView style={[
                 styles.buttonsGroupContainer,
                 {
-                    backgroundColor: colorScheme === 'dark' ? Colors.dark.card : '#f5f5f5'
+                    backgroundColor: Colors[colorScheme ?? 'dark'].card
                 }
             ]}>
                 {moreActionList.slice(2, 7).map((item) => (
@@ -66,7 +66,7 @@ const HomePostSingleItemMoreAction = () => {
             <ThemedView style={[
                 styles.buttonsGroupContainer,
                 {
-                    backgroundColor: colorScheme === 'dark' ? Colors.dark.card : '#f5f5f5'
+                    backgroundColor: Colors[colorScheme ?? 'dark'].card
                 }
             ]}>
                 {moreActionList.slice(7, 9).map((item) => (

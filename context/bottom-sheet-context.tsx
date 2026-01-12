@@ -10,10 +10,11 @@ import React, {
     ReactNode,
     useCallback,
     useContext,
+    useEffect,
     useRef,
     useState,
 } from 'react';
-import { StyleSheet, useColorScheme } from 'react-native';
+import { StyleSheet, useColorScheme, useWindowDimensions } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type BottomSheetContextType = {
@@ -35,6 +36,15 @@ export const BottomSheetProvider = ({
     const bottomSheetRef = useRef<BottomSheetModal>(null);
     const colorScheme = useColorScheme();
     const insets = useSafeAreaInsets();
+    const { width } = useWindowDimensions();
+
+    const [widthState, setWidthState] = useState(width);
+
+    useEffect(() => {
+        setWidthState(width);
+    }, [width]);
+
+    const isTablet = widthState > 600;
 
     const [content, setContent] = useState<ReactNode>(null);
 
@@ -69,19 +79,25 @@ export const BottomSheetProvider = ({
                 {children}
                 <BottomSheetModal
                     ref={bottomSheetRef}
-                    backdropComponent={renderBackdrop}
+                    detached={isTablet}
                     enableDynamicSizing
                     enablePanDownToClose
-                    handleStyle={{
-                        backgroundColor: Colors[colorScheme ?? 'dark'].background,
-                    }}
-                    handleIndicatorStyle={{
-                        backgroundColor:
-                            Colors[colorScheme ?? 'dark'].secondaryText,
+                    backdropComponent={renderBackdrop}
+                    style={{
+                        width: isTablet ? widthState / 1.5 : '100%',
+                        marginHorizontal: isTablet ? (widthState - widthState / 1.5) / 2 : 0,
+                        borderBottomRightRadius: isTablet ? 18 : 0,
+                        borderBottomLeftRadius: isTablet ? 18 : 0,
                     }}
                     backgroundStyle={{
-                        backgroundColor:
-                            Colors[colorScheme ?? 'dark'].background,
+                        backgroundColor: Colors[colorScheme ?? 'dark'].background
+                    }}
+                    handleStyle={{
+                        backgroundColor: Colors[colorScheme ?? 'dark'].background,
+                        borderRadius: 18
+                    }}
+                    handleIndicatorStyle={{
+                        backgroundColor: Colors[colorScheme ?? 'dark'].secondaryText,
                     }}
                 >
                     <BottomSheetView

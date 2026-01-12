@@ -28,10 +28,6 @@ const HomeScreen = () => {
     const isTablet = widthState > 600;
     const isLandscape = widthState > heightState;
 
-    const handlePresentModalPress = useCallback(() => {
-        bottomSheetModalRef.current?.present();
-    }, []);
-
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         setTimeout(() => {
@@ -54,8 +50,9 @@ const HomeScreen = () => {
                 contentContainerStyle={{
                     backgroundColor: colorScheme === 'dark' ? '#1a1a1a' : '#f5f5f5',
                     gap: 10,
-                    maxWidth: isTablet ? isLandscape ? (widthState / 2.5) : (widthState / 1.5) : 'auto',
-                    marginHorizontal: 'auto'
+                    maxWidth: isTablet ? isLandscape ? (widthState / 2.5) : (widthState / 2) : 'auto',
+                    marginHorizontal: 'auto',
+                    overflow: 'hidden'
                 }}
                 refreshControl={
                     <RefreshControl

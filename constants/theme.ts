@@ -7,7 +7,7 @@ export const Colors = {
     primary: primary,
     secondary: '#D8EEFF',
     icon: '#687076',
-    card: '#E0E0E0',
+    card: '#f5f5f5',
     border: '#e6e6e6',
     secondaryText: '#9e9e9e'
   },
