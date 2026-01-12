@@ -1,10 +1,12 @@
 import { Colors } from '@/constants/theme';
+import { useBottomSheet } from '@/context/bottom-sheet-context';
 import { Comment1Outlined, MenuMeatballs1Solid, Share1Outlined, ThumbsUp3Outlined } from '@lineiconshq/free-icons';
 import { Lineicons } from '@lineiconshq/react-native-lineicons';
 import { GlobeHemisphereEastIcon, SealCheckIcon } from 'phosphor-react-native';
 import React from 'react';
 import { Image, Pressable, StyleSheet, useColorScheme } from 'react-native';
-import { HeartGradientIcon, LikeGradientIcon } from './icons';
+import HomePostSingleItemMoreAction from './home-post-single-item-more-action';
+import HomePostSingleReactionButton from './home-post-single-reaction-button';
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
 
@@ -12,6 +14,7 @@ const image = 'https://scontent-pmo1-1.xx.fbcdn.net/v/t39.30808-1/418935722_3905
 
 const HomePostSingleItem = () => {
     const colorScheme = useColorScheme();
+    const { present } = useBottomSheet();
 
     return (
         <ThemedView style={styles.content}>
@@ -38,7 +41,7 @@ const HomePostSingleItem = () => {
                     </ThemedView>
                 </ThemedView>
                 <ThemedView style={styles.headerRight}>
-                    <Pressable>
+                    <Pressable onPress={() => present(<HomePostSingleItemMoreAction />)}>
                         <Lineicons
                             icon={MenuMeatballs1Solid}
                             size={24}
@@ -60,12 +63,7 @@ const HomePostSingleItem = () => {
             <ThemedView style={styles.interactonsContainer}>
                 <ThemedView style={styles.interactionResultsContainer}>
                     <ThemedView style={styles.interactionResultsLeft}>
-                        <ThemedView style={styles.interactionResultsLeftReactions}>
-                            <HeartGradientIcon size={16} strokeWidth={10} strokeColor={Colors[colorScheme ?? 'dark'].background} />
-                            <ThemedView style={styles.interactionResultsLeftSingleReaction}>
-                                <LikeGradientIcon size={16} strokeWidth={10} strokeColor={Colors[colorScheme ?? 'dark'].background} />
-                            </ThemedView>
-                        </ThemedView>
+                        <HomePostSingleReactionButton />
                         <ThemedText style={[styles.interactionResultsLeftTotalText, { color: Colors[colorScheme ?? 'dark'].secondaryText }]}>
                             81 more
                         </ThemedText>
