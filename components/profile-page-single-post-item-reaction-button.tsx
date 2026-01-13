@@ -74,7 +74,7 @@ const ReactionItem = ({ reaction, index, onSelect }: any) => {
     )
 }
 
-const HomePostSingleReactionButton = () => {
+const ProfilePageSingelPostItemReactionButton = () => {
     const colorScheme = useColorScheme()
     const { width } = useWindowDimensions()
 
@@ -128,7 +128,7 @@ const HomePostSingleReactionButton = () => {
     )
 }
 
-export default HomePostSingleReactionButton
+export default ProfilePageSingelPostItemReactionButton
 
 const styles = StyleSheet.create({
     content: {

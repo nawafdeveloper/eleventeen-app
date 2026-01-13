@@ -1,4 +1,5 @@
 import { Colors } from '@/constants/theme'
+import { useBottomSheet } from '@/context/bottom-sheet-context'
 import { Comment1Outlined, MenuMeatballs1Solid, Share1Outlined, ThumbsUp3Outlined, XmarkSolid } from '@lineiconshq/free-icons'
 import Lineicons from '@lineiconshq/react-native-lineicons'
 import * as Haptics from 'expo-haptics'
@@ -17,6 +18,7 @@ import Animated, {
     withTiming
 } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import HomePostSingleItemMoreAction from './home-post-single-item-more-action'
 import { HeartGradientIcon } from './icons'
 import { ThemedText } from './themed-text'
 import { ThemedView } from './themed-view'
@@ -24,12 +26,13 @@ import { ThemedView } from './themed-view'
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window')
 const MIN_SCALE = 1
 const MAX_SCALE = 4
-const PAN_LIMIT = 5
+const PAN_LIMIT = 30
 const RESISTANCE_FACTOR = 0.20
 const ZOOM_RESISTANCE_FACTOR = 0.15
 
 const HomePostMediaPreview = () => {
     const { width } = useWindowDimensions();
+    const { present } = useBottomSheet();
 
     const [widthState, setWidthState] = useState(width);
 
@@ -226,7 +229,7 @@ const HomePostMediaPreview = () => {
                             color={Colors.dark.text}
                         />
                     </Pressable>
-                    <Pressable>
+                    <Pressable onPress={() => present(<HomePostSingleItemMoreAction />)}>
                         <Lineicons
                             icon={MenuMeatballs1Solid}
                             size={24}
@@ -291,7 +294,7 @@ const HomePostMediaPreview = () => {
                                 />
                                 <ThemedText style={styles.interactionSingleButtonText}>Like</ThemedText>
                             </Pressable>
-                            <Pressable style={styles.interactionSingleButtonContainer}>
+                            <Pressable onPress={() => router.push('/comments-page')} style={styles.interactionSingleButtonContainer}>
                                 <Lineicons
                                     icon={Comment1Outlined}
                                     size={24}

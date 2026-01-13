@@ -19,7 +19,13 @@ export default function RootLayout() {
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <GestureHandlerRootView>
         <BottomSheetProvider>
-          <Stack>
+          <Stack
+            screenOptions={{
+              contentStyle: {
+                backgroundColor: Colors[colorScheme ?? 'dark'].background
+              }
+            }}
+          >
             <Stack.Screen
               name="(tabs)"
               options={{
@@ -36,6 +42,12 @@ export default function RootLayout() {
             />
             <Stack.Screen
               name="profile-page"
+              options={{
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen
+              name="comments-page"
               options={{
                 headerShown: false,
               }}

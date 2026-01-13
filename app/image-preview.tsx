@@ -6,13 +6,13 @@ import { StyleSheet, useWindowDimensions } from 'react-native';
 
 const ImagePreview = () => {
     const { postId } = useLocalSearchParams<{ postId: string }>();
-    const { width } = useWindowDimensions();
+    const { width, height } = useWindowDimensions();
 
     const [widthState, setWidthState] = useState(width);
 
     useEffect(() => {
         setWidthState(width);
-    }, [width]);
+    }, [width, height]);
 
     const isTablet = widthState > 600;
 

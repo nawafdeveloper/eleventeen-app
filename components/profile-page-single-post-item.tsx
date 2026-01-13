@@ -6,22 +6,21 @@ import { router } from 'expo-router';
 import { GlobeHemisphereEastIcon, SealCheckIcon } from 'phosphor-react-native';
 import React from 'react';
 import { Image, Pressable, StyleSheet, useColorScheme } from 'react-native';
-import HomePostSingleItemMoreAction from './home-post-single-item-more-action';
-import HomePostSingleItemVerificationDescription from './home-post-single-item-verification-description';
-import HomePostSingleReactionButton from './home-post-single-reaction-button';
+import ProfilePageSinglePostItemMoreAction from './profile-page-single-post-item-more-action';
+import ProfilePageSingelPostItemReactionButton from './profile-page-single-post-item-reaction-button';
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
 
 const image = 'https://scontent-pmo1-1.xx.fbcdn.net/v/t39.30808-1/418935722_390591180172520_5691167081189509875_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_ohc=DdruYd6XIUwQ7kNvwHCemxp&_nc_oc=Admy3mS1RXf-12NQ_TtB2XzVIamiA2PSobmprFS5s4fRMYuJxzKHusf67yvdeflz49XOdTgO-pK8-bA8YpcVgxs0&_nc_zt=24&_nc_ht=scontent-pmo1-1.xx&_nc_gid=b4CV2ffKy8m3ZhaIfCNdnQ&oh=00_Afoyy-73HLEGNs-3B_CcEqWa0mzD5aEdLMeXdGhvwT7pbQ&oe=6969C41A'
 
-const HomePostSingleItem = () => {
+const ProfilePageSinglePostItem = () => {
     const colorScheme = useColorScheme();
     const { present } = useBottomSheet();
 
     return (
         <ThemedView style={styles.content}>
             <ThemedView style={styles.headerContainer}>
-                <Pressable onPress={() => router.push('/profile-page')} style={styles.headerLeft}>
+                <Pressable style={styles.headerLeft}>
                     <Image
                         source={{ uri: image }}
                         resizeMode='contain'
@@ -32,9 +31,7 @@ const HomePostSingleItem = () => {
                             <ThemedText style={styles.usernameText}>
                                 ثمانية / Thmanyah
                             </ThemedText>
-                            <Pressable onPress={() => present(<HomePostSingleItemVerificationDescription />)}>
-                                <SealCheckIcon color={Colors[colorScheme ?? 'dark'].primary} weight="fill" size={16} />
-                            </Pressable>
+                            <SealCheckIcon color={Colors[colorScheme ?? 'dark'].primary} weight="fill" size={16} />
                         </ThemedView>
                         <ThemedView style={styles.postMetadataContainer}>
                             <ThemedText style={[styles.postTimestampText, { color: Colors[colorScheme ?? 'dark'].secondaryText }]}>
@@ -45,7 +42,7 @@ const HomePostSingleItem = () => {
                     </ThemedView>
                 </Pressable>
                 <ThemedView style={styles.headerRight}>
-                    <Pressable onPress={() => present(<HomePostSingleItemMoreAction />)}>
+                    <Pressable onPress={() => present(<ProfilePageSinglePostItemMoreAction />)}>
                         <Lineicons
                             icon={MenuMeatballs1Solid}
                             size={24}
@@ -69,7 +66,7 @@ const HomePostSingleItem = () => {
             <ThemedView style={styles.interactonsContainer}>
                 <ThemedView style={styles.interactionResultsContainer}>
                     <ThemedView style={styles.interactionResultsLeft}>
-                        <HomePostSingleReactionButton />
+                        <ProfilePageSingelPostItemReactionButton />
                         <ThemedText style={[styles.interactionResultsLeftTotalText, { color: Colors[colorScheme ?? 'dark'].secondaryText }]}>
                             81 more
                         </ThemedText>
@@ -114,7 +111,7 @@ const HomePostSingleItem = () => {
     )
 }
 
-export default HomePostSingleItem
+export default ProfilePageSinglePostItem
 
 const styles = StyleSheet.create({
     content: {
