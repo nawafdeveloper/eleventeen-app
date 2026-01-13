@@ -9,6 +9,7 @@ import { Image, Pressable, StyleSheet, useColorScheme } from 'react-native';
 import HomePostSingleItemMoreAction from './home-post-single-item-more-action';
 import HomePostSingleItemVerificationDescription from './home-post-single-item-verification-description';
 import HomePostSingleReactionButton from './home-post-single-reaction-button';
+import PostSingleItemShare from './post-single-item-share';
 import { ThemedText } from './themed-text';
 import { ThemedView } from './themed-view';
 
@@ -100,7 +101,9 @@ const HomePostSingleItem = () => {
                         />
                         <ThemedText style={styles.interactionSingleButtonText}>Comment</ThemedText>
                     </Pressable>
-                    <Pressable style={styles.interactionSingleButtonContainer}>
+                    <Pressable 
+                    onPress={() => present(<PostSingleItemShare />)}
+                    style={styles.interactionSingleButtonContainer}>
                         <Lineicons
                             icon={Share1Outlined}
                             size={24}

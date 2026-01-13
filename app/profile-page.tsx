@@ -42,7 +42,7 @@ const ProfilePage = () => {
                 style={[
                     styles.content,
                     {
-                        maxWidth: isTablet ? (widthState / 2) : 'auto',
+                        maxWidth: isTablet ? (widthState / 2.5) : 'auto',
                         marginHorizontal: 'auto',
                         backgroundColor: Colors[colorScheme ?? 'dark'].card,
                     }

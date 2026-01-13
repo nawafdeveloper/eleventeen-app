@@ -20,7 +20,7 @@ const ImagePreview = () => {
         <ThemedView
             style={{
                 backgroundColor: 'black',
-                maxWidth: isTablet ? (widthState / 2) : 'auto',
+                maxWidth: isTablet ? (widthState / 2.5) : 'auto',
                 marginHorizontal: 'auto',
                 flex: 1
             }}

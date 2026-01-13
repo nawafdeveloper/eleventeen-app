@@ -82,6 +82,7 @@ export const BottomSheetProvider = ({
                     detached={isTablet}
                     enableDynamicSizing
                     enablePanDownToClose
+                    enableOverDrag={false}
                     backdropComponent={renderBackdrop}
                     style={{
                         width: isTablet ? widthState / 1.5 : '100%',

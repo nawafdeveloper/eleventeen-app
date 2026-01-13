@@ -3,7 +3,7 @@ import CommentsPageHeader from '@/components/comments-page-header';
 import { ThemedView } from '@/components/themed-view';
 import { Colors } from '@/constants/theme';
 import React, { useEffect, useState } from 'react';
-import { FlatList, Image, KeyboardAvoidingView, Platform, StyleSheet, TextInput, useColorScheme, useWindowDimensions } from 'react-native';
+import { FlatList, Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, TextInput, useColorScheme, useWindowDimensions } from 'react-native';
 import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 
 const CommentsPage = () => {
@@ -12,6 +12,26 @@ const CommentsPage = () => {
     const insets = useSafeAreaInsets();
 
     const [widthState, setWidthState] = useState(width);
+    const [isKeyboardVisible, setIsKeyboardVisible] = useState(false)
+
+    useEffect(() => {
+        const showEvent =
+            Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
+        const hideEvent =
+            Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
+
+        const showSub = Keyboard.addListener(showEvent, () =>
+            setIsKeyboardVisible(true)
+        )
+        const hideSub = Keyboard.addListener(hideEvent, () =>
+            setIsKeyboardVisible(false)
+        )
+
+        return () => {
+            showSub.remove()
+            hideSub.remove()
+        }
+    }, [])
 
     useEffect(() => {
         setWidthState(width);
@@ -33,14 +53,14 @@ const CommentsPage = () => {
                 style={[
                     styles.content,
                     {
-                        maxWidth: isTablet ? (widthState / 2) : 'auto',
+                        maxWidth: isTablet ? (widthState / 2.5) : 'auto',
                         marginHorizontal: 'auto',
                         width: '100%',
                         backgroundColor: Colors[colorScheme ?? 'dark'].card,
                     }
                 ]}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                keyboardVerticalOffset={0}
+                keyboardVerticalOffset={Platform.OS === 'android' ? isKeyboardVisible ? -20 : -80 : -20}
             >
                 <CommentsPageHeader />
                 <FlatList
@@ -117,13 +137,13 @@ const styles = StyleSheet.create({
         borderRadius: 99,
     },
     inputContainer: {
-        paddingVertical: 8,
         paddingHorizontal: 12,
         borderRadius: 99,
         borderCurve: 'continuous',
         flex: 1
     },
     input: {
-        flex: 1,
+        minHeight: 36,
+        alignSelf: 'stretch',
     }
 })

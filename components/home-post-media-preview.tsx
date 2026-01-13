@@ -246,7 +246,7 @@ const HomePostMediaPreview = () => {
                                 styles.image,
                                 animatedImageStyle,
                                 {
-                                    maxWidth: isTablet ? (widthState / 2) : 'auto',
+                                    maxWidth: isTablet ? (widthState / 2.5) : 'auto',
                                     marginHorizontal: 'auto',
                                 }
                             ]}
