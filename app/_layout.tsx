@@ -14,6 +14,7 @@ export const unstable_settings = {
 
 export default function RootLayout() {
   const colorScheme = useColorScheme();
+  const session = false;
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
@@ -26,32 +27,43 @@ export default function RootLayout() {
               }
             }}
           >
-            <Stack.Screen
-              name="(tabs)"
-              options={{
-                headerShown: false
-              }}
-            />
-            <Stack.Screen
-              name="image-preview"
-              options={{
-                headerShown: false,
-                animation: 'none',
-                contentStyle: { backgroundColor: 'black' }
-              }}
-            />
-            <Stack.Screen
-              name="profile-page"
-              options={{
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen
-              name="comments-page"
-              options={{
-                headerShown: false,
-              }}
-            />
+            <Stack.Protected guard={session}>
+              <Stack.Screen
+                name="(tabs)"
+                options={{
+                  headerShown: false
+                }}
+              />
+              <Stack.Screen
+                name="image-preview"
+                options={{
+                  headerShown: false,
+                  animation: 'none',
+                  contentStyle: { backgroundColor: 'black' }
+                }}
+              />
+              <Stack.Screen
+                name="profile-page"
+                options={{
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen
+                name="comments-page"
+                options={{
+                  headerShown: false,
+                }}
+              />
+            </Stack.Protected>
+            <Stack.Protected guard={!session}>
+              <Stack.Screen
+                name="welcome"
+                options={{
+                  headerShown: false,
+                  animation: 'none'
+                }}
+              />
+            </Stack.Protected>
           </Stack>
           <StatusBar
             style="auto"
